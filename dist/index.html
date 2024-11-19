@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Information</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .form1 {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -20%);
+            background-color: rgb(201, 201, 201);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+
+        .empf {
+            border: 2px solid red;
+        }
+
+        button.absolute {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        button.absolute:hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="bg-blue-500 text-white text-center py-3">
+        <h1>Employee Information</h1>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 text-white" id="navbar1">
+        <div class="container mx-auto flex justify-between items-center px-4 py-2">
+            <div class="flex items-center">
+                <button class="text-white md:hidden" id="navbar-toggler">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+                <ul class="hidden md:flex space-x-4">
+                    <li><a href="#" class="hover:text-blue-400" onclick="shAllInfo()">All Employees</a></li>
+                    <li><a href="#" class="hover:text-blue-400" onclick="showMaleInfo()">Male Employees</a></li>
+                    <li><a href="#" class="hover:text-blue-400" onclick="showFemaleInfo()">Female Employees</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Senior Employees</a></li>
+                </ul>
+            </div>
+            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" type="button"
+                onclick="syz()">Add New Employee</button>
+        </div>
+    </nav>
+
+    <div class="container mx-auto my-4">
+        <div class="text-center">
+            <input type="text" id="searchName"
+                class="border border-gray-300 rounded-lg py-2 px-4 w-1/2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                placeholder="Search Employee by Name">
+        </div>
+    </div>
+
+
+    <!-- Add Employee Modal -->
+    <!-- Add Employee Modal -->
+    <div class="container mt-4 form1 hidden" id="empform">
+        <button class="absolute top-2 right-2 text-xl text-red-600 hover:text-red-800"
+            onclick="closeForm()">&times;</button>
+        <h3 class="text-lg font-semibold">Add New Employee</h3>
+        <form id="newform" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="empId" class="block font-medium">Employee ID</label>
+                    <input type="text" id="empId" class="w-full border border-gray-300 rounded px-2 py-1"
+                        placeholder="Enter Employee ID">
+                </div>
+                <div>
+                    <label for="empName" class="block font-medium">Name</label>
+                    <input type="text" id="empName" class="w-full border border-gray-300 rounded px-2 py-1"
+                        placeholder="Enter Name">
+                </div>
+                <div>
+                    <label for="empEmail" class="block font-medium">Email</label>
+                    <input type="email" id="empEmail" class="w-full border border-gray-300 rounded px-2 py-1"
+                        placeholder="Enter Email">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="empPhone" class="block font-medium">Phone Number</label>
+                    <input type="text" id="empPhone" class="w-full border border-gray-300 rounded px-2 py-1"
+                        placeholder="Enter Phone Number">
+                </div>
+                <div>
+                    <label for="empGender" class="block font-medium">Gender</label>
+                    <select id="empGender" class="w-full border border-gray-300 rounded px-2 py-1">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="empCompany" class="block font-medium">Company</label>
+                    <input type="text" id="empCompany" class="w-full border border-gray-300 rounded px-2 py-1"
+                        placeholder="Enter Company">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="empHireDate" class="block font-medium">Hire Date</label>
+                    <input type="date" id="empHireDate" class="w-full border border-gray-300 rounded px-2 py-1">
+                </div>
+                <div>
+                    <label for="empSalary" class="block font-medium">Salary</label>
+                    <input type="number" id="empSalary" class="w-full border border-gray-300 rounded px-2 py-1"
+                        placeholder="Enter Salary">
+                </div>
+            </div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add
+                Employee</button>
+        </form>
+    </div>
+
+
+    <div class="container mx-auto mt-4">
+        <table class="w-full border-collapse border border-gray-400">
+            <thead>
+                <tr class="bg-gray-800 text-white text-center">
+                    <th class="border border-gray-400 py-2 px-4">Emp ID</th>
+                    <th class="border border-gray-400 py-2 px-4">Emp Name</th>
+                    <th class="border border-gray-400 py-2 px-4">Email</th>
+                    <th class="border border-gray-400 py-2 px-4">Phone No</th>
+                    <th class="border border-gray-400 py-2 px-4">Gender</th>
+                    <th class="border border-gray-400 py-2 px-4">Company</th>
+                    <th class="border border-gray-400 py-2 px-4">Hire Date</th>
+                    <th class="border border-gray-400 py-2 px-4">Salary</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
